@@ -42,15 +42,3 @@ def delete_product(db:Session,  product_id: int):
     db.delete(db_product)
     db.commit()
     return db_product
-
-def create_category(db: Session, category: schemas.CategoryCreate):
-    db_category = models.Category(
-        name = category.name
-    )
-    db.add(db_category)
-    db.commit()
-    db.refresh(db_category)
-    return db_category
-
-def get_categories(db: Session):
-    return db.query(models.Category).all()

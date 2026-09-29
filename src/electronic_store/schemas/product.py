@@ -9,12 +9,3 @@ class ProductCreate(BaseModel):
 
 class ProductRead(ProductCreate):
     id: int
-
-class CategoryCreate(BaseModel):
-    name: str
-
-class CategoryRead(CategoryCreate):
-    id: int 
-
-
-    
