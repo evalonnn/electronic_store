@@ -1,13 +1,19 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-DATABASE_URL = "postgresql://postgres:Ozkz20070324@localhost:5432/electronics_shop"
+
+from .config import settings
+
+DATABASE_URL = (
+    f"postgresql://{settings.DB_PORT}/{settings.DB_PASSWORD}"
+    f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
+)
 
 Base = declarative_base()
-
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
+
+
 
 def get_db():
     db = SessionLocal()
