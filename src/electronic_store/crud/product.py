@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from .. import models
-from .. import schemas
+
+from .. import models, schemas
+
 
 def create_product(db: Session, product: schemas.ProductCreate):
     db_product = models.Product(
@@ -14,14 +15,19 @@ def create_product(db: Session, product: schemas.ProductCreate):
     db.refresh(db_product)
     return db_product
 
+
 def get_products(db: Session):
     return db.query(models.Product).all()
 
-def get_product(db:Session, product_id: int):
+
+def get_product(db: Session, product_id: int):
     return db.query(models.Product).filter(models.Product.id == product_id).first()
 
-def update_product(db:Session, product_id: int, product: schemas.ProductCreate):
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+
+def update_product(db: Session, product_id: int, product: schemas.ProductCreate):
+    db_product = (
+        db.query(models.Product).filter(models.Product.id == product_id).first()
+    )
     if db_product is None:
         return None
 
@@ -34,8 +40,11 @@ def update_product(db:Session, product_id: int, product: schemas.ProductCreate):
     db.refresh(db_product)
     return db_product
 
-def delete_product(db:Session,  product_id: int):
-    db_product = db.query(models.Product).filter(models.Product.id == product_id).first()
+
+def delete_product(db: Session, product_id: int):
+    db_product = (
+        db.query(models.Product).filter(models.Product.id == product_id).first()
+    )
     if db_product is None:
         return None
 
