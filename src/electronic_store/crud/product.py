@@ -9,6 +9,7 @@ def create_product(db: Session, product: schemas.ProductCreate):
         description=product.description,
         price=product.price,
         stock=product.stock,
+        category_id=product.category_id
     )
     db.add(db_product)
     db.commit()
@@ -35,6 +36,7 @@ def update_product(db: Session, product_id: int, product: schemas.ProductCreate)
     db_product.description = product.description
     db_product.price = product.price
     db_product.stock = product.stock
+    db_product.category_id = product.category_id
 
     db.commit()
     db.refresh(db_product)

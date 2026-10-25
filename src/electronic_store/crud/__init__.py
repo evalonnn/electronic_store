@@ -6,3 +6,5 @@ from .product import (
     get_products,
     update_product,
 )
+
+__all__ = ["ProductCreate", "ProductRead", ...]
