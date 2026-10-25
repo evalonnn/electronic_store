@@ -19,6 +19,7 @@ dependencies = [
     "bcrypt (==4.0.1)",
     "passlib[bcrypt] (>=1.7.4,<2.0.0)",
     "pydantic-settings (>=2.15.0,<3.0.0)",
+    "pydantic[email] (>=2.14.1,<3.0.0)",
 ]
 
 [tool.poetry]
