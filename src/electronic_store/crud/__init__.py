@@ -6,3 +6,10 @@ from .product import (
     delete_product,
 )
 from .category import get_categories, create_category
+
+from .user import (
+    get_password_hash,
+    get_user_by_email,
+    get_user_by_username,
+    create_user,
+)
