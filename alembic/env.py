@@ -7,9 +7,9 @@ from sqlalchemy import engine_from_config, pool
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from src.electronic_store import models  
-from src.electronic_store.config import settings  
-from src.electronic_store.database import Base  
+from src.electronic_store import models
+from src.electronic_store.config import settings
+from src.electronic_store.database import Base
 
 config = context.config
 
