@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from .. import crud, schemas
 from ..database import get_db
 from ..security import create_access_token
+from ..dependencies import get_current_user
 
 router = APIRouter()
 
@@ -30,3 +31,8 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
                             
     access_token = create_access_token({"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.get("/users/me", response_model=schemas.UserRead)
+def me(current_user = Depends(get_current_user)):
+    return current_user
