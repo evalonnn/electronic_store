@@ -24,15 +24,21 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=schemas.Token)
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(
+    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
+):
     user = crud.authenticate_user(db, form_data.username, form_data.password)
     if user is None:
-        raise HTTPException(headers={"WWW-Authenticate": "Bearer"}, status_code=401, detail="Incorrect username or password")
-                            
+        raise HTTPException(
+            headers={"WWW-Authenticate": "Bearer"},
+            status_code=401,
+            detail="Incorrect username or password",
+        )
+
     access_token = create_access_token({"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
 
 @router.get("/users/me", response_model=schemas.UserRead)
-def me(current_user = Depends(get_current_user)):
+def me(current_user=Depends(get_current_user)):
     return current_user

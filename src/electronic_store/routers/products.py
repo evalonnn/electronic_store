@@ -4,11 +4,16 @@ from typing import List
 
 from .. import crud, schemas
 from ..database import get_db
+from ..dependencies import get_current_user
 
 router = APIRouter()
 
 
-@router.post("/products", response_model=schemas.ProductRead)
+@router.post(
+    "/products",
+    response_model=schemas.ProductRead,
+    dependencies=[Depends(get_current_user)],
+)
 def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return crud.create_product(db, product)
 
@@ -26,7 +31,11 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
     return product
 
 
-@router.put("/products/{product_id}", response_model=schemas.ProductRead)
+@router.put(
+    "/products/{product_id}",
+    response_model=schemas.ProductRead,
+    dependencies=[Depends(get_current_user)],
+)
 def update_product(
     product_id: int, product: schemas.ProductCreate, db: Session = Depends(get_db)
 ):
@@ -36,7 +45,11 @@ def update_product(
     return update_product
 
 
-@router.delete("/products/{product_id}", response_model=schemas.ProductRead)
+@router.delete(
+    "/products/{product_id}",
+    response_model=schemas.ProductRead,
+    dependencies=[Depends(get_current_user)],
+)
 def delete_product(product_id: int, db: Session = Depends(get_db)):
     delete_product = crud.delete_product(db, product_id)
     if delete_product is None:
