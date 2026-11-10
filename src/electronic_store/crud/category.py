@@ -12,3 +12,7 @@ def create_category(db: Session, category: schemas.CategoryCreate):
     db.commit()
     db.refresh(db_category)
     return db_category
+
+
+def get_category(db: Session, category_id: int):
+    return db.query(models.Category).filter(models.Category.id == category_id).first()

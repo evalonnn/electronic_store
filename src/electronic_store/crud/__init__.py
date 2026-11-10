@@ -5,7 +5,7 @@ from .product import (
     update_product,
     delete_product,
 )
-from .category import get_categories, create_category
+from .category import get_categories, create_category, get_category
 
 from .user import (
     get_password_hash,
