@@ -4,11 +4,17 @@ from typing import List
 
 from .. import crud, schemas
 from ..database import get_db
+from ..dependencies import get_current_admin
 
 router = APIRouter()
 
 
-@router.post("/categories", response_model=schemas.CategoryRead)
+@router.post(
+    "/categories",
+    response_model=schemas.CategoryRead,
+    dependencies=[Depends(get_current_admin)],
+    status_code=201,
+)
 def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     return crud.create_category(db, category)
 
